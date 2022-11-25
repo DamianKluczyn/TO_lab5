@@ -1,16 +1,54 @@
-# This is a sample Python script.
+import math
+from abc import ABC, abstractmethod
+import numpy as np
+import pandas as pd
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+#Interfejsy
+class IVector(ABC):
+    @abstractmethod
+    def getComponents(self):
+        pass
 
+    @abstractmethod
+    def abs(self):
+        pass
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    @abstractmethod
+    def cdot(self):
+        pass
 
+class IPolar2D(ABC):
+    @abstractmethod
+    def getAngle(self):
+        pass
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    @abstractmethod
+    def abs(self):
+        pass
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#Klasy
+class Vector2D(IVector):
+    def __init__(self, x, y):
+        super().__init__()
+        self.x = x
+        self.y = y
+
+    def getComponents(self):
+        array = np.array
+        array.add(self.x)
+        array.add(self.y)
+        return array
+
+    def abs(self):
+        return math.sqrt(self.x * self.x + self.y * self.y)
+
+    def cdot(self, param):
+        return self.x * self.y + param.getComponents()[0] * param.getComponents()[1]
+
+class Polar2DAdapter(IPolar2D, IVector):
+    def __init__(self):
+        super().__init__()
+        srcVector = IVector()
+
+    def abs(self):
+        return srcVector
