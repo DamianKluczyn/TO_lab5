@@ -1,7 +1,5 @@
 import math
 from abc import ABC, abstractmethod
-import numpy as np
-import pandas as pd
 
 #Interfejsy
 class IVector(ABC):
@@ -29,26 +27,42 @@ class IPolar2D(ABC):
 #Klasy
 class Vector2D(IVector):
     def __init__(self, x, y):
-        super().__init__()
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
 
     def getComponents(self):
-        array = np.array
-        array.add(self.x)
-        array.add(self.y)
-        return array
+        return [self._x, self._y]
 
     def abs(self):
-        return math.sqrt(self.x * self.x + self.y * self.y)
+        return math.sqrt(self._x * self._x + self._y * self._y)
 
     def cdot(self, param):
-        return self.x * self.y + param.getComponents()[0] * param.getComponents()[1]
+        return self._x * self._y + param.getComponents()[0] * param.getComponents()[1]
 
 class Polar2DAdapter(IPolar2D, IVector):
-    def __init__(self):
-        super().__init__()
-        srcVector = IVector()
+    def __init__(self, Vector2D):
+        self._srcVector = Vector2D
 
     def abs(self):
-        return srcVector
+        return self._srcVector.abs()
+
+    def cdot(self, param):
+        return self._srcVector.cdot(param)
+
+    def getComponents(self):
+        return self._srcVector.getComponents()
+
+    def getAngle(self):
+        x = self._srcVector.getComponents()[0]
+        y = self._srcVector.getComponents()[1]
+        return math.degrees(math.atan(y / x))
+
+class Vector3DDecorator(IVector):
+    def __init__(self, Vector2D, z = 0):
+        self._srcVector = Vector2D
+        self._z = z
+    def abs(self):
+        return self._srcVector.abs()
+
+    def cdot(self, param):
+        return self._srcVector.cdot
