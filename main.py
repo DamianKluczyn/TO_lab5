@@ -66,3 +66,4 @@ class Vector3DDecorator(IVector):
 
     def cdot(self, param):
         return self._srcVector.cdot
+
