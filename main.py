@@ -113,3 +113,38 @@ class _2DPolarInheritance(Vector2D):
 
     def getAngle(self):
         return math.sqrt(Vector2D.getComponents()[1] / Vector2D.getComponents()[0])
+
+
+vector2d = _2DPolarInheritance(1, 2)
+vector3ddecorator = Vector3DDecorator(1, 2, 3)
+vector3dinheritance = Vector3DInheritance(11,10,9)
+
+print("UKŁAD KARTEZJANSKI:")
+print("Wektor 2d")
+print("x: " + vector2d.getComponents()[0] + ", y: " + vector2d.getComponents()[1])
+print("Wektor 3d inheritance")
+print("x: " + vector3dinheritance.getComponents()[0] + ", y: " + vector3dinheritance.getComponents()[1] + ", z: " + vector3dinheritance.getComponents()[2])
+print("Wektor 3d inheritance")
+print("x: " + vector3ddecorator.getComponents()[0] + ", y: " + vector3ddecorator.getComponents()[1] + ", z: " + vector3ddecorator.getComponents()[2])
+
+print("\nUKŁAD BIEGUNOWY: ")
+print("Wektor 2d ")
+print(f"promien wodzacy: {0}".format(vector2d.abs()))
+print(f"wartosc kata: {0}".format(vector2d.getAngle()))
+
+print("\nILOCZYN WEKTOROWY")
+tmp_vector3ddecorator = vector3ddecorator.cross(vector2d)
+print("Wektor 3d decorator i wektor 2d: ")
+print(f"x: {0}".format(tmp_vector3ddecorator.getComponents()[0]))
+print(f"y: {0}".format(tmp_vector3ddecorator.getComponents()[1]))
+print(f"z: {0}".format(tmp_vector3ddecorator.getComponents()[2]))
+tmp_vector3dinheritance = vector3dinheritance.cross(vector2d)
+print("Wektor 3d inheritance i wektor 2d: ")
+print(f"x: {0}".format(tmp_vector3dinheritance.getComponents()[0]))
+print(f"y: {0}".format(tmp_vector3dinheritance.getComponents()[1]))
+print(f"z: {0}".format(tmp_vector3dinheritance.getComponents()[2]))
+
+print("\nILOCZYN SKALARNY")
+print(f"Wektor 2d z wektorem 2d: {0}".format(vector2d.cdot(vector2d)))
+print(f"Wektor 3d inheritance z wektorem 2d: {0}".format(vector3dinheritance.cdot(vector2d)))
+print(f"Wektor 3d decorator z wektorem 2d: {0}".format(vector3ddecorator.cdot(vector2d)))
